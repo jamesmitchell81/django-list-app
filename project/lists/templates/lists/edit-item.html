@@ -1,0 +1,17 @@
+{% extends 'lists/base.html' %}
+{% load staticfiles %}
+{% block title %}
+	Edit item
+{% endblock %}
+
+{% block content %}
+	<h2 class='list-title'>
+		<a href="{{ list.get_absolute_url }}">
+			{{ list.name }}
+		</a>
+	</h2>
+	<form action="" method="POST">
+		{% csrf_token %}
+		{{ form }}
+	</form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'lists/base.html' %}
+{% load staticfiles %}
+{% block title %}{{ list.name }}{% endblock %}
+
+{% block content %}
+	<div class="list-input-container">
+		<h2 class='list-title'>
+			<a href="{{ list.get_absolute_url }}">
+				{{ list.name }}
+			</a>
+		</h2>
+		<form action="/lists/list/add/{{ list.id }}" method="POST">
+			{% csrf_token %}
+			<!-- <input type="text" id="new-item" name="new-item" required autofocus> -->
+			{{ form }}
+		</form>
+	</div>
+	<div class="list-container">
+		{% for item in items %}
+			<div class="list-item-container">
+				<a href="/lists/toggle/{{ item.id }}" class="list-item-switch {{ item.current|yesno:"list-item-on,list-item-off" }}">
+					S
+				</a>
+				<div class="list-item-value">
+					{{ item.value }}
+				</div>
+				<a href="/lists/delete/{{ item.id }}" class="list-item-options">
+					<!-- <img src="{% static 'svg/cross.svg' %}" alt=""> -->
+				</a>
+			</div>
+		{% empty %}
+			<span class=''>No items yet :)</span>
+		{% endfor %}
+	</div>
+{% endblock %}
